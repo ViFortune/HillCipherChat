@@ -1,24 +1,24 @@
-# HỆ THỐNG MÃ HÓA & MÔ PHỎNG MẬT MÃ HILL TIẾNG VIỆT ($\mathbb{Z}_{41}$)
+# HỆ THỐNG MÃ HÓA & MÔ PHỎNG MẬT MÃ HILL TIẾNG VIỆT ($\mathbb{Z}_{43}$)
 
-Dự án Bài tập lớn Đại số Tuyến tính: xây dựng ứng dụng Web mô phỏng truyền tin bảo mật đầu cuối (End-to-End Encryption) sử dụng Mật mã Hill trên trường hữu hạn $\mathbb{Z}_{41}$. Hệ thống hỗ trợ xử lý Tiếng Việt có dấu và cung cấp bộ Visualizer minh họa chi tiết từng bước tính toán đại số ma trận.
+Dự án Bài tập lớn Đại số Tuyến tính: xây dựng ứng dụng Web mô phỏng truyền tin bảo mật đầu cuối (End-to-End Encryption) sử dụng Mật mã Hill trên trường hữu hạn $\mathbb{Z}_{43}$. Hệ thống hỗ trợ xử lý Tiếng Việt có dấu và cung cấp bộ Visualizer minh họa chi tiết từng bước tính toán đại số ma trận.
 
 ## 1. Cơ sở Toán học & Thuật toán
 
-### 1.1. Trường hữu hạn $\mathbb{Z}_{41}$
+### 1.1. Trường hữu hạn $\mathbb{Z}_{43}$
 
-Hệ thống sử dụng bảng mã mở rộng gồm 41 ký tự ($m = 41$), được ánh xạ với các chỉ số từ $0$ đến $40$:
+Hệ thống sử dụng bảng mã mở rộng gồm 43 ký tự ($m = 43$), được ánh xạ với các chỉ số từ $0$ đến $42$:
 
-- **26 chữ cái:** `a-z` (bao gồm `f`, `j`, `w`... phục vụ quy ước dấu Telex).
+- **27 chữ cái:** `a-z` (bao gồm `đ`, `f`, `j`, `w`... phục vụ quy ước dấu Telex).
 - **10 chữ số:** `0-9`.
-- **5 ký tự đặc biệt:** Dấu cách (SPACE), `.`, `,`, `!`, `?`.
+- **6 ký tự đặc biệt:** Dấu cách (SPACE), `.`, `,`, `!`, `?`, `-`.
 
-Vì $41$ là một số nguyên tố, tập hợp $\mathbb{Z}_{41}$ tạo thành một Trường hữu hạn (Galois Field). Điều kiện để ma trận khóa $K$ cấp $n \times n$ khả nghịch là:
+Vì $43$ là một số nguyên tố, tập hợp $\mathbb{Z}_{43}$ tạo thành một Trường hữu hạn (Galois Field). Điều kiện để ma trận khóa $K$ cấp $n \times n$ khả nghịch là:
 
-$$\det(K) \bmod 41 \neq 0$$
+$$\det(K) \bmod 43 \neq 0$$
 
-Mọi ma trận vuông thỏa mãn điều kiện trên đều chắc chắn tồn tại ma trận nghịch đảo $K^{-1} \pmod{41}$, được tính bằng công thức:
+Mọi ma trận vuông thỏa mãn điều kiện trên đều chắc chắn tồn tại ma trận nghịch đảo $K^{-1} \pmod{43}$, được tính bằng công thức:
 
-$$K^{-1} \equiv (\det(K))^{-1} \cdot \text{adj}(K) \pmod{41}$$
+$$K^{-1} \equiv (\det(K))^{-1} \cdot \text{adj}(K) \pmod{43}$$
 
 Trong đó, $(\det(K))^{-1}$ là nghịch đảo modulo của định thức, và $\text{adj}(K)$ là ma trận phụ hợp (chuyển vị của ma trận phần phụ đại số).
 
@@ -28,11 +28,11 @@ Giả sử chọn ma trận khóa $K$ cấp $3 \times 3$. Văn bản rõ đượ
 
 - **Mã hóa (Encryption):**
 
-  $$C_i = (K \cdot P_i) \bmod 41$$
+  $$C_i = (K \cdot P_i) \bmod 43$$
 
 - **Giải mã (Decryption):**
 
-  $$P_i = (K^{-1} \cdot C_i) \bmod 41$$
+  $$P_i = (K^{-1} \cdot C_i) \bmod 43$$
 
 ## 2. Tiền xử lý & Hậu xử lý Tiếng Việt
 
@@ -94,8 +94,8 @@ Plaintext.
 ├── app.py                      # Web Server chính (Flask + SocketIO + APIs)
 ├── core                        # Lõi thuật toán Toán học & Xử lý văn bản
 │   ├── __init__.py
-│   ├── char_set.py             # Bảng mã 41 ký tự & Mapping Index
-│   ├── hill_math.py            # Phép toán Z_41: det, cofactor, inverse, encrypt
+│   ├── char_set.py             # Bảng mã 43 ký tự & Mapping Index
+│   ├── hill_math.py            # Phép toán Z_43: det, cofactor, inverse, encrypt
 │   └── preprocessor.py         # NFD/Telex converter & NFC Restorer
 ├── static                      # Static assets cho Frontend
 │   ├── css
