@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hill Cipher Simulator Z43</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col font-sans text-gray-800">
+    <!-- Header & Key Config -->
+    <header class="bg-white shadow-sm p-4 flex justify-between items-center z-10">
+        <div>
+            <h1 class="text-xl font-bold text-blue-700">Mật mã Hill $\mathbb{Z}_{43}$</h1>
+            <p class="text-sm text-gray-500">Mô phỏng Truyền tin & Xử lý Đại số</p>
+        </div>
+        <div class="flex space-x-4 items-center">
+            <div class="grid grid-cols-3 gap-1 bg-gray-100 p-2 rounded" id="key-matrix-input">
+                <!-- Inputs sẽ được render qua JS -->
+            </div>
+            <div class="flex flex-col space-y-2">
+                <button id="btn-gen-key" class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm hover:bg-blue-200">🎲 Sinh khóa ngẫu nhiên</button>
+                <button id="btn-validate-key" class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm hover:bg-green-200">Kiểm tra $\det(K)$</button>
+            </div>
+            <div id="key-status" class="text-sm font-semibold w-48 text-right"></div>
+        </div>
+    </header>
+
+    <!-- index.html (Thay thế phần <main>) -->
+    <main class="flex-1 flex flex-col items-center bg-gray-200">
+        <!-- Màn hình Đăng nhập/Chọn tên (Sẽ ẩn đi sau khi join) -->
+        <div id="login-screen" class="mt-20 p-6 bg-white rounded shadow-md w-96 flex flex-col space-y-4 text-center">
+            <h2 class="text-xl font-bold">Tham gia phòng Chat</h2>
+            <input type="text" id="username-input" class="border p-2 rounded" placeholder="Nhập tên của bạn (VD: Alice)">
+            <button id="btn-join" class="bg-blue-600 text-white py-2 rounded">Vào Chat</button>
+        </div>
+
+        <!-- Màn hình Chat chính (Ban đầu ẩn) -->
+        <div id="chat-screen" class="hidden w-full max-w-4xl h-full flex flex-col bg-white shadow-lg">
+            <div class="p-3 bg-gray-100 font-semibold border-b text-gray-800 text-center">
+                Phòng Chat Mật Mã <span id="my-name-display" class="text-blue-600"></span>
+            </div>
+            
+            <!-- Khung chứa tin nhắn chung -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col">
+                <!-- Tin nhắn sẽ được chèn vào đây. 
+                    Tin mình gửi -> align right
+                    Tin người khác -> align left -->
+            </div>
+
+            <div class="p-4 bg-gray-50 border-t flex space-x-2">
+                <input type="text" id="chat-input" class="flex-1 border rounded px-3 py-2" placeholder="Nhập tin nhắn...">
+                <button id="btn-send" class="bg-blue-600 text-white px-6 py-2 rounded">Gửi</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Visualizer Modal -->
+    <div id="visualizer-modal" class="fixed inset-0 bg-black/60 hidden justify-center items-center z-50">
+        <div class="bg-white w-11/12 max-w-5xl h-[85vh] rounded-lg shadow-xl flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-lg">
+                <h2 class="text-lg font-bold">Trace Visualizer: Chi tiết Đại số & Xử lý Chuỗi</h2>
+                <button id="btn-close-modal" class="text-gray-500 hover:text-red-500 font-bold text-xl">&times;</button>
+            </div>
+            <div id="visualizer-content" class="p-6 overflow-y-auto flex-1 space-y-8">
+                <!-- Nội dung render động từ visualizer.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/socket_client.js"></script>
+    <script src="/static/js/visualizer.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
