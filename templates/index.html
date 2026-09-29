@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
 </head>
+<!-- Cấu hình và nhúng thư viện MathJax để render công thức Toán học -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <body class="bg-gray-50 h-screen flex flex-col font-sans text-gray-800">
     <!-- Header & Key Config -->
     <header class="bg-white shadow-sm p-4 flex justify-between items-center z-10">
